@@ -20,7 +20,7 @@ const saveOptions = () => {
 // Restores select box and checkbox state using the preferences stored in chrome.storage.
 const restoreOptions = () => {
     chrome.storage.sync.get(
-        { mode: 'hide', caseInsensitive: false, keywords: '', highlightColor: '#ffeaea' },
+        { mode: 'hide', caseInsensitive: true, keywords: '', highlightColor: '#ffeaea' },
         (items) => {
             document.getElementById('modeNone').checked = items.mode === 'none';
             document.getElementById('modeHide').checked = items.mode === 'hide';

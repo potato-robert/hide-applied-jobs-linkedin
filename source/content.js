@@ -1,14 +1,40 @@
 async function init() {
+    // Returns one element per job card, supporting both the legacy BEM layout and
+    // the newer hashed-class layout where cards are div[role="button"][componentkey].
+    function getJobItems() {
+        const legacy = Array.from(document.querySelectorAll(
+            '.jobs-search-results__list-item, .scaffold-layout__list-item'
+        ));
+        if (legacy.length > 0)
+            return legacy;
+
+        const scope = document.querySelector('#workspace [data-testid="lazy-column"]')
+                   ?? document.querySelector('main#workspace')
+                   ?? document.body;
+        const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        const seen = new Set();
+        return Array.from(scope.querySelectorAll('[role="button"][componentkey]'))
+            .filter(el => {
+                const key = el.getAttribute('componentkey');
+                if (!key || !uuidPattern.test(key))
+                    return false;
+                if (seen.has(key))
+                    return false;
+                seen.add(key);
+                return true;
+            });
+    }
+
     // Function to hide job items that contain 'Applied' or user-defined keywords
     function hideJobItems() {
-        const jobItems = document.querySelectorAll('.jobs-search-results__list-item, .scaffold-layout__list-item');
+        const jobItems = getJobItems();
         let appliedJobsHidden = 0;
         let keywordMatches = {};
 
         // Get user-defined keywords and mode from storage
         chrome.storage.sync.get(['keywords', 'caseInsensitive', 'mode', 'highlightColor'], (result) => {
             const keywords = result.keywords ? result.keywords.split(',').map(k => k.trim()) : [];
-            const caseInsensitive = result.caseInsensitive || false;
+            const caseInsensitive = result.caseInsensitive ?? true;
             const mode = result.mode || 'none';
             const highlightColor = result.highlightColor || '#fffbe6';
             
@@ -48,9 +74,8 @@ async function init() {
                     return;
                 }
 
-                const appliedElement = Array.from(item.querySelectorAll('li')).find(li => {
-                    const text = li.textContent.trim();
-                    return appliedTranslations.includes(text);
+                const appliedElement = Array.from(item.querySelectorAll('li, p')).find(el => {
+                    return appliedTranslations.includes(el.textContent.trim());
                 });
                 
                 let wasMatched = false;
