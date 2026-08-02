@@ -13,15 +13,10 @@ A simple browser extension that hides jobs already applied to in the LinkedIn jo
 
 ## Features
 
-- Identifies jobs in LinkedIn job search results and hides or highlights them based on your settings.
+- Hides jobs from your LinkedIn job search results, if you have already applied to them.
 - Click the extension icon to configure settings:
   - **Action on matched jobs:** hide, highlight, or take no action
-  - **Highlight color:** pick a custom color when using highlight mode
-  - **Matching options:** independently enable matching for:
-    - Jobs you have already applied to
-    - Jobs containing your keywords (comma-separated, e.g. Promoted, Remote)
-  - **Case-insensitive keyword filtering**
-- Shows a badge on the extension icon with the number of matched jobs on the current tab.
+  - **Matching options:** applied jobs, or match by keywords
 
 ## Disclaimer
 
@@ -38,24 +33,22 @@ This extension is not affiliated with LinkedIn or any of its affiliates or subsi
 - This browser extension used the [browser-extension-template](https://github.com/fregante/browser-extension-template) as a starting point for development.
 - The below information is not relevant if you would only like to install and use this extension. It is for software development purposes.
 
-### Getting started
+### Development
 
-#### 🛠 Build locally
+#### Get Started
 
-1. Checkout the copied repository to your local machine eg. with `git clone https://github.com/Robert01101101/hide-applied-jobs-linkedin/`
+1. Checkout the copied repository to your local machine eg. with `git clone https://github.com/potato-robert/hide-applied-jobs-linkedin/`
 1. Run `npm install` to install all required dependencies
-1. Run `npm run build`
+1. Run `npm run build` to build to `distribution/`
 1. The extension can now be [loaded manually in Chrome](https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/#google-chrome-opera-vivaldi).
 
-The build step will create the `distribution` folder, this folder will contain the generated extension.
+#### Commands
 
-#### 🏃 Run the extension
-
-Using [web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/) is recommended for automatic reloading and running in a dedicated browser instance. Alternatively you can load the extension manually (see below).
-
-1. Run `npm run watch` to watch for file changes and build continuously
-1. Run `npm install --global web-ext` (only only for the first time)
-1. If you're using `web-ext`: In another terminal, run `web-ext run -t chromium`
+- `npm test` — runs the full suite: lint, build, unit tests, and extension validation (`web-ext lint`)
+- `npm run lint-fix` — auto-fix lint issues where possible
+- `npm run test:unit` — run unit tests only
+- `npm run build` — build the extension to `distribution/`
+- `npm run watch` — watch for file changes and build continuously
 
 ## Support me
 
