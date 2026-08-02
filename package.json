@@ -6,7 +6,10 @@
 		"lint-fix": "run-p 'lint:* -- --fix'",
 		"lint:css": "stylelint source/**/*.css",
 		"lint:js": "xo",
-		"test": "run-p lint:* build",
+		"prepare": "husky",
+		"test": "run-s lint build test:unit test:ext",
+		"test:ext": "web-ext lint --source-dir distribution",
+		"test:unit": "vitest run",
 		"watch": "parcel watch --no-hmr"
 	},
 	"browserslist": [
@@ -17,6 +20,18 @@
 		"envs": [
 			"browser",
 			"webextensions"
+		],
+		"overrides": [
+			{
+				"files": [
+					"test/**/*.js",
+					"vitest.config.js"
+				],
+				"envs": [
+					"node",
+					"browser"
+				]
+			}
 		],
 		"rules": {
 			"unicorn/prefer-top-level-await": "off"
@@ -31,11 +46,15 @@
 	"devDependencies": {
 		"@parcel/config-webextension": "^2.12.1-canary.3290",
 		"@parcel/resolver-default": "^2.0.0-canary.1735",
+		"husky": "^9.1.7",
+		"jsdom": "^26.0.0",
 		"npm-run-all": "^4.1.5",
 		"parcel": "^2.0.0-canary.1665",
 		"stylelint": "^16.6.1",
 		"stylelint-config-prettier": "^9.0.5",
 		"stylelint-config-xo": "^1.0.2",
+		"vitest": "^3.0.5",
+		"web-ext": "^8.3.0",
 		"xo": "^0.58.0"
 	},
 	"@parcel/resolver-default": {

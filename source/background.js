@@ -1,17 +1,7 @@
+import {formatBadgeText} from './lib/badge.js';
+
 const BADGE_COLOR = '#4d6d8c';
 const LINKEDIN_HOST = 'www.linkedin.com';
-
-function formatBadgeText(count) {
-	if (count === 0) {
-		return '';
-	}
-
-	if (count > 99) {
-		return '99+';
-	}
-
-	return String(count);
-}
 
 function setBadgeForTab(tabId, count) {
 	const text = formatBadgeText(count);

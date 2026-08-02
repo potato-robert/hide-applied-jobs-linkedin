@@ -1,3 +1,5 @@
+import {DEFAULT_SETTINGS} from './lib/defaults.js';
+
 const getMode = () => document.querySelector('input[name="mode"]:checked').value;
 
 // Saves options to chrome.storage
@@ -30,27 +32,17 @@ const saveOptions = () => {
 
 // Restores select box and checkbox state using the preferences stored in chrome.storage.
 const restoreOptions = () => {
-	chrome.storage.sync.get(
-		{
-			mode: 'hide',
-			matchApplied: true,
-			matchKeywords: true,
-			caseInsensitive: true,
-			keywords: '',
-			highlightColor: '#ffeaea',
-		},
-		items => {
-			document.querySelector('#modeNone').checked = items.mode === 'none';
-			document.querySelector('#modeHide').checked = items.mode === 'hide';
-			document.querySelector('#modeHighlight').checked = items.mode === 'highlight';
-			document.querySelector('#matchAppliedToggle').checked = items.matchApplied;
-			document.querySelector('#matchKeywordsToggle').checked = items.matchKeywords;
-			document.querySelector('#caseInsensitiveToggle').checked = items.caseInsensitive;
-			document.querySelector('#keywords').value = items.keywords;
-			document.querySelector('#highlightColor').value = items.highlightColor || '#ffeaea';
-			updateFieldStates();
-		},
-	);
+	chrome.storage.sync.get(DEFAULT_SETTINGS, items => {
+		document.querySelector('#modeNone').checked = items.mode === 'none';
+		document.querySelector('#modeHide').checked = items.mode === 'hide';
+		document.querySelector('#modeHighlight').checked = items.mode === 'highlight';
+		document.querySelector('#matchAppliedToggle').checked = items.matchApplied;
+		document.querySelector('#matchKeywordsToggle').checked = items.matchKeywords;
+		document.querySelector('#caseInsensitiveToggle').checked = items.caseInsensitive;
+		document.querySelector('#keywords').value = items.keywords;
+		document.querySelector('#highlightColor').value = items.highlightColor || DEFAULT_SETTINGS.highlightColor;
+		updateFieldStates();
+	});
 };
 
 const updateFieldStates = () => {
