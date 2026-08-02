@@ -1,0 +1,6 @@
+---
+description: Run the full test suite before committing
+alwaysApply: true
+---
+
+Before creating any git commit, run `npm test`. Do not commit if any step fails. Fix failures or report them to the user.
