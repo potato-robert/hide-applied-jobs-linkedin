@@ -26,8 +26,7 @@
 		"extends": [
 			"stylelint-config-xo"
 		],
-		"rules": {
-		}
+		"rules": {}
 	},
 	"devDependencies": {
 		"@parcel/config-webextension": "^2.12.1-canary.3290",

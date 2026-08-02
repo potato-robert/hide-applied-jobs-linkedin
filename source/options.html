@@ -1,83 +1,58 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
     <title>Hide Applied Jobs LinkedIn Options</title>
-    <style>
-        h2 {
-            color: #385066;
-        }
-        body {
-            width: 300px;
-            padding: 10px;
-            font-family: Arial, sans-serif;
-        }
-        #mode-toggle {
-            display: flex;
-            flex-direction: column;
-        }
-        .action-row, .filter-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 2px;
-        }
-        #toggle {
-            margin-top: 18px;
-        }
-        .action-row input[type="radio"], .filter-row input[type="checkbox"] {
-            margin-right: 10px;
-            margin-left: 0;
-        }
-        #toggle .description {
-            margin-left: 25px;
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
-        }
-        input[type="text"] {
-            width: 100%;
-        }
-        .header-label {
-            margin-bottom: 3px;
-        }
-    </style>
+    <link rel="stylesheet" href="options.css">
 </head>
 <body>
     <h2>Hide Applied Jobs LinkedIn</h2>
-    <div id="mode-toggle">
-        <label style="font-weight: bold;" class="header-label">Action on matched jobs:</label>
-        <div class="action-row">
+
+    <section id="mode-toggle" class="section">
+        <span class="section-title">Action on matched jobs</span>
+        <div class="option-row">
             <input type="radio" id="modeNone" name="mode" value="none">
             <label for="modeNone">No action</label>
         </div>
-        <div class="action-row">
+        <div class="option-row">
             <input type="radio" id="modeHide" name="mode" value="hide" checked>
             <label for="modeHide">Hide jobs</label>
         </div>
-        <div class="action-row">
+        <div class="option-row">
             <input type="radio" id="modeHighlight" name="mode" value="highlight">
             <label for="modeHighlight">Highlight jobs</label>
         </div>
-        <div class="action-row" id="highlightColorRow" style="display:none;">
-            <label for="highlightColor" style="margin:0;">Highlight color:</label>
-            <input type="color" id="highlightColor" value="#ffeaea" style="width:32px;height:32px;padding:0;border:none;background:none;">
+        <div class="option-row highlight-color-row" id="highlightColorRow" hidden>
+            <label for="highlightColor">Highlight color</label>
+            <input type="color" id="highlightColor" class="color-input" value="#ffeaea">
         </div>
-    </div>
-    <div id="toggle">
-        <label style="font-weight: bold; display:block;" class="header-label">Matching options:</label>
-        <div class="filter-row">
-            <input type="checkbox" id="caseInsensitiveToggle" checked>
-            <label for="caseInsensitiveToggle">Case-insensitive filtering</label>
+    </section>
+
+    <section id="toggle" class="section">
+        <span class="section-title">Matching options</span>
+        <div class="option-row">
+            <input type="checkbox" id="matchAppliedToggle" checked>
+            <label for="matchAppliedToggle">Jobs you have applied to</label>
         </div>
-    </div>
-    <br>
-    <div>
-        <label for="keywords">Additional Keywords to hide (comma-separated):</label>
-        <input type="text" id="keywords" placeholder="e.g. Promoted,Remote" style="margin-top: 3px;">
-    </div>
-    <br>
-    <div id="status"></div>
-    <button id="save">Save</button>
+        <div class="option-row">
+            <input type="checkbox" id="matchKeywordsToggle" checked>
+            <label for="matchKeywordsToggle">Jobs matching keywords</label>
+        </div>
+        <div class="keyword-options" id="keywordOptions">
+            <span class="subheader">Keyword options</span>
+            <label for="keywords">Keywords (comma-separated)</label>
+            <input type="text" id="keywords" placeholder="e.g. Promoted, Remote">
+            <div class="option-row">
+                <input type="checkbox" id="caseInsensitiveToggle" checked>
+                <label for="caseInsensitiveToggle">Case-insensitive filtering</label>
+            </div>
+        </div>
+        <p id="noMatchWarning" class="no-match-warning" hidden>No jobs will be matched with the current settings.</p>
+    </section>
+
+    <div id="status" role="status" aria-live="polite"></div>
+    <button id="save" type="button">Save</button>
+
     <script src="options.js"></script>
 </body>
 </html>

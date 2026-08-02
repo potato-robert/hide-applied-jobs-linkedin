@@ -13,13 +13,15 @@ A simple browser extension that hides jobs already applied to in the LinkedIn jo
 
 ## Features
 
-- Identifies and hides jobs in the list shown by LinkedIn when searching for jobs.
-- Click on the extension icon to configure settings:
-  - Choose whether to hide or highlight jobs you've already applied to, or jobs containing your keywords
-    - If highlighting, you can pick your own highlight color
-  - Turn the extension on / off
-  - Add additional keywords to hide or highlight job listings with: Promotional, On-site, etc.
-  - Toggle case-sensitivity for keyword filtering
+- Identifies jobs in LinkedIn job search results and hides or highlights them based on your settings.
+- Click the extension icon to configure settings:
+  - **Action on matched jobs:** hide, highlight, or take no action
+  - **Highlight color:** pick a custom color when using highlight mode
+  - **Matching options:** independently enable matching for:
+    - Jobs you have already applied to
+    - Jobs containing your keywords (comma-separated, e.g. Promoted, Remote)
+  - **Case-insensitive keyword filtering**
+- Shows a badge on the extension icon with the number of matched jobs on the current tab.
 
 ## Disclaimer
 
